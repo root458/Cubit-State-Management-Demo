@@ -17,8 +17,10 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.plus_one),
+        onPressed: () {
+          productsCubit.getPhones();
+        },
+        child: const Icon(Icons.refresh)
       ),
       appBar: AppBar(
         leading: const Icon(Icons.phone_android),
