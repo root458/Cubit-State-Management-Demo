@@ -44,7 +44,6 @@ class HomePage extends StatelessWidget {
       body: buildListView(_phoneList),
       // buildErrorView(context),
       // buildLoadingScreen(context),
-      
     );
   }
 }
