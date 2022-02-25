@@ -1,29 +1,18 @@
-// import 'package:catalogue_demo/components/list_view.dart';
 import 'package:catalogue_demo/components/error_view.dart';
 import 'package:catalogue_demo/components/list_view.dart';
 import 'package:catalogue_demo/components/loading_screen.dart';
-import 'package:catalogue_demo/models/phone.dart';
+import 'package:catalogue_demo/cubit/products_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<Phone> _phoneList = [
-      Phone(
-          product: 'Vivo',
-          model: 'V12',
-          price: 20000,
-          processor: 'Exynos',
-          ram: 8),
-      Phone(
-          product: 'Samsung',
-          model: 'A71',
-          price: 47000,
-          processor: 'Snapdragon',
-          ram: 12)
-    ];
+
+    // Get cubit from provider
+    final productsCubit = BlocProvider.of<ProductsCubit>(context);
 
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -33,7 +22,7 @@ class HomePage extends StatelessWidget {
       ),
       appBar: AppBar(
         leading: const Icon(Icons.phone_android),
-        title: const Text('Catalogue'),
+        title: const Text('Available Devices'),
         actions: const [
           Padding(
             padding: EdgeInsets.all(8.0),
@@ -41,9 +30,20 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: buildListView(_phoneList),
-      // buildErrorView(context),
-      // buildLoadingScreen(context),
+      body: BlocBuilder<ProductsCubit, ProductsState>(
+        builder: ((context, state) {
+          if (state is ProductsLoading) {
+            productsCubit.getPhones();
+            return buildLoadingScreen(context);
+          } else if (state is ProductsLoaded) {
+            return buildListView(state.phonesList.phonesList);
+          } else if (state is ProductsError) {
+            return buildErrorView(context);
+          } else {
+            return buildErrorView(context);
+          }
+        }),
+      ),
     );
   }
 }

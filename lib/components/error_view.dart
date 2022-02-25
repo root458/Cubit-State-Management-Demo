@@ -19,6 +19,7 @@ Widget buildErrorView(BuildContext context) {
                   flex: 70,
                   child: Icon(
                     Icons.signal_wifi_connected_no_internet_4,
+                    color: Colors.deepPurple,
                     size: 70,
                   ))
             ],

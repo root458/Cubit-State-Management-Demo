@@ -1,5 +1,8 @@
+import 'package:catalogue_demo/cubit/products_cubit.dart';
 import 'package:catalogue_demo/homepage.dart';
+import 'package:catalogue_demo/models/phones_list_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,11 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Catalogue',
+      title: 'Devices catalogue',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: const HomePage(),
+      home: BlocProvider(
+        create: (context) => ProductsCubit(PhonesListRepository()),
+        child: const HomePage(),
+      ),
     );
   }
 }
