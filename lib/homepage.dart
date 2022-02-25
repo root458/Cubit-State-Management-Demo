@@ -1,4 +1,7 @@
+// import 'package:catalogue_demo/components/list_view.dart';
+import 'package:catalogue_demo/components/error_view.dart';
 import 'package:catalogue_demo/components/list_view.dart';
+import 'package:catalogue_demo/components/loading_screen.dart';
 import 'package:catalogue_demo/models/phone.dart';
 import 'package:flutter/material.dart';
 
@@ -39,6 +42,9 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: buildListView(_phoneList),
+      // buildErrorView(context),
+      // buildLoadingScreen(context),
+      
     );
   }
 }
